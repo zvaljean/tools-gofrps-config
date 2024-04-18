@@ -5,12 +5,10 @@ vhostHTTPPort = 7100
 # https://gofrp.org/zh-cn/docs/features/http-https/subdomain/
 # 服务端配置 subDomainHost 后，客户端可以不配置
 # 国内使用自定义域名还是存在备案问题
-
-subDomainHost = "valjean.cn"
-
+#subDomainHost = "frps.com"
 #[auth]
 #method = "token"
-#token = "6517040aacfc4e0ad1e0bc01fd550a20837b89c5"
+#token = "{{ .Envs.FRP_TOKEN }}"
 [log]
 to = "/var/log/frps.log"
 level = "debug"
