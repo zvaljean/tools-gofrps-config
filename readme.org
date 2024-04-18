@@ -1,0 +1,42 @@
+* gofrps
+- https://gofrp.org/zh-cn/docs/
+* client
+** add *.secret* 配置文件
+- https://gofrp.org/zh-cn/docs/features/common/configure/#%E6%A8%A1%E7%89%88%E6%B8%B2%E6%9F%93
+  将一些重要参数，提取出来。使用时，更换成自己的配置即可
+#+begin_src conf
+  # 服务端地址
+  SERVER_ADDR = "xx.xx.xx.xx"
+  # frp 校验 token 
+  TOKEN = "123456"
+#+end_src
+** start client
+#+begin_src shell
+  make run
+#+end_src
+* service
+** systemd
+- https://gofrp.org/zh-cn/docs/setup/systemd/
+  官方已有systemd的相关配置，本文仅添加一个环境变量 *FRP_TOKEN* 支持
+  #+begin_src conf
+    [Unit]
+    # 服务名称，可自定义
+    Description = frp server
+    After = network.target syslog.target
+    Wants = network.target
+
+    [Service]
+    EnvironmentFile=/etc/frp/token
+    Type = simple
+    # 启动frps的命令，需修改为您的frps的安装路径
+    ExecStart = /opt/frp_0.57.0_linux_amd64/frps -c /opt/frp_0.57.0_linux_amd64/conf/server.toml
+
+    [Install]
+    WantedBy = multi-user.target
+  #+end_src
+- /etc/frp/token 
+  #+begin_src shell
+    cat > /etc/frp/token << EOF
+    FRP_TOKEN=123456
+    EOF
+  #+end_src
