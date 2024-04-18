@@ -1,0 +1,6 @@
+[[proxies]]
+name = "dm-service"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 5236
+remotePort = 7103

@@ -1,0 +1,7 @@
+[[proxies]]
+name = "test"
+type = "http"
+localIP = "127.0.0.1"
+localPort = 7000
+subdomain = "test"
+locations = ["/", "/ng_check"]

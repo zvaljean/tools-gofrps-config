@@ -1,0 +1,8 @@
+[[visitors]]
+name = "mini_ssh"
+type = "stcp"
+serverName = "mini_ssh"
+secretKey = "abcdefg"
+bindAddr = "127.0.0.1"
+bindPort = 7101
+

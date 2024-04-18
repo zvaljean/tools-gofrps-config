@@ -1,0 +1,7 @@
+[[visitors]]
+name = "opw_ssh"
+type = "stcp"
+serverName = "opw_ssh"
+secretKey = "abcdefg"
+bindAddr = "127.0.0.1"
+bindPort = 7102
