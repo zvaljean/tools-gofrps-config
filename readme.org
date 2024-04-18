@@ -3,6 +3,7 @@
 * client
 ** add *.secret* 配置文件
 - https://gofrp.org/zh-cn/docs/features/common/configure/#%E6%A8%A1%E7%89%88%E6%B8%B2%E6%9F%93
+
   将一些重要参数，提取出来。使用时，更换成自己的配置即可
 #+begin_src conf
   # 服务端地址
