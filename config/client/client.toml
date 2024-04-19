@@ -4,7 +4,7 @@ serverPort = 7000
 # 配置文件路径是从 frps frpc 路径开始的
 includes = [
         "./config/client/visitor/*.toml",
-        "./config/client/proxy/*.toml",
+        #"./config/client/proxy/*.toml",
  ]
 
 
@@ -14,7 +14,7 @@ includes = [
 log.level = "trace"
 #log.maxDays = 3
 
-#[auth]
-#method = "token"
-#token = "{{ .Envs.FRP_TOKEN }}"
+[auth]
+method = "token"
+token = "{{ .Envs.FRP_TOKEN }}"
 
