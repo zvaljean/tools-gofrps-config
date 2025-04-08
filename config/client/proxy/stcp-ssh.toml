@@ -1,0 +1,6 @@
+[[proxies]]
+name = "exampl-ssh-stcp"
+type = "stcp"
+secretKey = "11111111111111111111111111111111"
+localIP = "127.0.0.1"
+localPort = 22

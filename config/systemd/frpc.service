@@ -1,0 +1,15 @@
+[Unit]
+# 服务名称，可自定义
+Description = frp client
+Wants = network-online.target
+After = network-online.target syslog.target
+
+[Service]
+EnvironmentFile=/opt/tools/frp/config/token/token
+Type = simple
+# 启动frps的命令，需修改为您的frps的安装路径
+ExecStart = /opt/tools/frp/frpc -c /opt/tools/frp/config/client/client.toml
+
+[Install]
+WantedBy = multi-user.target
+

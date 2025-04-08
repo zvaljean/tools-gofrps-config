@@ -1,0 +1,84 @@
+* gofrps
+- https://gofrp.org/zh-cn/docs/
+- https://github.com/fatedier/frp/releases
+** proxy
+- 服务提供方
+** visitor
+- 服务使用方
+** stcp
+- https://gofrp.org/zh-cn/docs/examples/stcp/
+* client
+** 抽离参数成配置文件
+- https://gofrp.org/zh-cn/docs/features/common/configure/#%E6%A8%A1%E7%89%88%E6%B8%B2%E6%9F%93
+  将一些重要参数，提取出来。使用时，更换成自己的配置即可
+#+begin_src conf
+  # 服务端地址
+    FRP_SERVER_ADDR="127.0.0.1"
+    FRP_SERVER_PORT="1234"
+    FRP_VISTOR_KEY="11111111111111111111111111111111"
+    FRP_TOKEN="2222222222222222222222222222222222222222"
+#+end_src
+- /etc/frp/token 
+  #+begin_src shell
+    cat > /etc/frp/token << EOF
+    FRP_SERVER_ADDR="127.0.0.1"
+    FRP_SERVER_PORT="1234"
+    FRP_VISTOR_KEY="11111111111111111111111111111111"
+    FRP_TOKEN="2222222222222222222222222222222222222222"
+    EOF
+  #+end_src
+** 便捷启动
+- makefile 可以配置多环境启动方式
+#+begin_src makefile
+  .PHONY:
+  .SILENT:
+  .ONESHELL:
+  op-proxy:
+          # frpc 中所需要的相关变量，格式如上
+          . ./config/token/token
+          # 这步需要额外使用export 导出，否则在frpc中无法读取环境变量
+          export FRP_SERVER_ADDR FRP_SERVER_PORT FRP_VISTOR_KEY FRP_TOKEN
+          ./frpc -c ./config/client/op-proxy.toml
+
+#+end_src
+- run.sh 
+  可以用作测试脚本
+* service
+** systemd
+- https://gofrp.org/zh-cn/docs/setup/systemd/
+- server
+  官方已有systemd的相关配置，本文仅添加一个环境变量 *FRP_TOKEN* 支持
+  #+begin_src conf
+    [Unit]
+    # 服务名称，可自定义
+    Description = frp server
+    After = network.target syslog.target
+    Wants = network.target
+
+    [Service]
+    EnvironmentFile=/etc/frp/token
+    Type = simple
+    # 启动frps的命令，需修改为您的frps的安装路径
+    ExecStart = /opt/frp_0.57.0_linux_amd64/frps -c /opt/frp_0.57.0_linux_amd64/conf/server.toml
+
+    [Install]
+    WantedBy = multi-user.target
+  #+end_src
+- client
+  #+begin_src conf
+    [Unit]
+    # 服务名称，可自定义
+    Description = frp client
+    Wants = network-online.target
+    After = network-online.target syslog.target
+
+    [Service]
+    EnvironmentFile=/opt/tools/frp/config/token/token
+    Type = simple
+    # 启动frps的命令，需修改为您的frps的安装路径
+    ExecStart = /opt/tools/frp/frpc -c /opt/tools/frp/config/client/client.toml
+
+    [Install]
+    WantedBy = multi-user.target
+
+  #+end_src

@@ -1,0 +1,15 @@
+[Unit]
+# 服务名称，可自定义
+Description = frp server
+After = network.target syslog.target
+Wants = network.target
+
+[Service]
+EnvironmentFile=/etc/frp/token
+Type = simple
+# 启动frps的命令，需修改为您的frps的安装路径
+ExecStart = /opt/frp_0.57.0_linux_amd64/frps -c /opt/frp_0.57.0_linux_amd64/conf/server.toml
+
+[Install]
+WantedBy = multi-user.target
+

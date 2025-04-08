@@ -1,0 +1,12 @@
+[[proxies]]
+name = "static-file"
+type = "tcp"
+remotePort = 7104
+[proxies.plugin]
+type = "static_file"
+# 本地文件目录，对外提供访问
+localPath = "/usr/share/nginx"
+# URL 中的前缀，将被去除，保留的内容即为要访问的文件路径
+stripPrefix = "usr"
+httpUser = "abc"
+httpPassword = "abc"

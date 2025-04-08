@@ -1,0 +1,7 @@
+[[visitors]]
+name = "example-stcp"
+type = "stcp"
+serverName = "example-stcp"
+secretKey = "11111111111111111111111111111111"
+bindAddr = "127.0.0.1"
+bindPort = 7201

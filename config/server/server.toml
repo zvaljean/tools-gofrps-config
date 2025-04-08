@@ -1,0 +1,20 @@
+bindAddr = "{{ .Envs.FRP_SERVER_ADDR }}"
+bindPort = "{{ .Envs.FRP_SERVER_PORT }}"
+#vhostHTTPPort = 7100
+
+# https://gofrp.org/zh-cn/docs/features/http-https/subdomain/
+# 服务端配置 subDomainHost 后，客户端可以不配置
+# 国内使用自定义域名还是存在备案问题
+#subDomainHost = "frps.com"
+#[auth]
+#method = "token"
+#token = "{{ .Envs.FRP_TOKEN }}"
+[log]
+to = "/var/log/frps.log"
+level = "debug"
+maxDays = 3
+
+#[sshTunnelGateway]
+#bindPort = 7104
+
+

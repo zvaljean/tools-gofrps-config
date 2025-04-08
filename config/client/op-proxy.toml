@@ -1,0 +1,21 @@
+serverAddr = "{{ .Envs.FRP_SERVER_ADDR }}"
+serverPort = {{ .Envs.FRP_SERVER_PORT }}
+
+# 配置文件路径是从 frps frpc 路径开始的
+includes = [
+         # "./config/client/visitor/*.toml",
+       # "./config/client/proxy/",
+        "/opt/tools/frp/config/client/proxy/stcp-sssh.toml",
+ ]
+
+
+# console or real logFile path like ./frpc.log
+log.to = "./frpc.log"
+#trace, debug, info, warn, error
+log.level = "trace"
+#log.maxDays = 3
+
+[auth]
+method = "token"
+token = "{{ .Envs.FRP_TOKEN }}"
+
